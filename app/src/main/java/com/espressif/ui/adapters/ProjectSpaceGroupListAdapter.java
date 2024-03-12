@@ -63,12 +63,13 @@ public class ProjectSpaceGroupListAdapter extends RecyclerView.Adapter<ProjectSp
                     if (position != RecyclerView.NO_POSITION) {
                         SpaceGroup clickedCard = arraylist.get(position);
                         String name = clickedCard.getGAAProjectSpaceGroupRef();
+                        String spaceName = clickedCard.getGAAProjectSpaceGroupName();
 
 
                         Context context = view.getContext();
                         Intent intent = new Intent(context, ProjectSpaceLandingActivity.class);
                         intent.putExtra("SPACE_GROUP_REF", name);
-
+                        intent.putExtra("SPACE_GROUP_NAME",spaceName);
 
                         context.startActivity(intent);
 

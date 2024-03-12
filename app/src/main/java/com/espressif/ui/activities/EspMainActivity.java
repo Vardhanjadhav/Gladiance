@@ -33,6 +33,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -61,6 +62,7 @@ import com.espressif.ui.models.RequestModel;
 import com.espressif.ui.models.ResponseModel;
 import com.espressif.ui.models.provisioninglabel.ProvisioningRequest;
 import com.espressif.ui.models.provisioninglabel.ProvisioningResponse;
+import com.espressif.ui.models.provisioninglabel.ResetResponse;
 import com.espressif.wifi_provisioning.BuildConfig;
 import com.espressif.wifi_provisioning.R;
 
@@ -109,6 +111,8 @@ public class EspMainActivity extends AppCompatActivity {
     String mac;
     Long gaaProjectSpaceTypePlannedDeviceRef;
 
+    Button resetButton;
+
     Context context = this;
 
     private static final String PREFS_NAME = "MyPrefsFile";
@@ -127,6 +131,7 @@ public class EspMainActivity extends AppCompatActivity {
 
         instance = this;
 
+        resetButton = findViewById(R.id.btn_reset);
 
         arrayList = new ArrayList<>();
 
@@ -190,7 +195,40 @@ public class EspMainActivity extends AppCompatActivity {
        // node();
 
         //getNodeID2();
-        GridLayoutManager gridLayoutManager1 = new GridLayoutManager(this,2);
+
+       // Reset Button Code
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
+                SharedPreferences preferences9 = getSharedPreferences("my_shared_prefe", MODE_PRIVATE);
+                String nodeId3 = preferences9.getString("KEY_USERNAMEs", "");
+                Log.d(TAG, "node id2: " +nodeId3);
+                // Make API call
+                Call<ResetResponse> call = apiService.factoryResetNode(nodeId3, userId2);
+                call.enqueue(new Callback<ResetResponse>() {
+                    @Override
+                    public void onResponse(Call<ResetResponse> call, Response<ResetResponse> response) {
+                        if (response.isSuccessful()) {
+                            ResetResponse responseModel = response.body();
+                            if (responseModel != null) {
+                                boolean success = responseModel.getSuccessful();
+                                String message = responseModel.getMessage();
+                                Log.d(TAG, "Success: " + success + ", Message: " + message);
+                            }
+                        } else {
+                            Log.e(TAG, "API call failed with code: " + response.code());
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResetResponse> call, Throwable t) {
+                        Log.e(TAG, "API call failed: " + t.getMessage());
+                    }
+                });
+            }
+        });
+
+       // GridLayoutManager gridLayoutManager1 = new GridLayoutManager(this,2);
 
         SharedPreferences preferences2 = getSharedPreferences("MyPrefse", MODE_PRIVATE);
         String nodeId2 = preferences2.getString("nodeId", "");
@@ -360,7 +398,7 @@ public class EspMainActivity extends AppCompatActivity {
           //  String NodeId = "WI84xt861kS39p2b5sXeGQ";
             ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
             Call<DeviceInfo> call = apiService.getAllData(nodeId2);
-            Log.e(TAG, "getDevice: "+nodeId2 );
+            Log.e(TAG, "getDevice NodeId: "+nodeId2 );
 
             call.enqueue(new Callback<DeviceInfo>() {
                 @Override

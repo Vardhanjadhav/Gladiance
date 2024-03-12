@@ -84,9 +84,13 @@ public class ProjectSpaceLandingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String ProjectSpaceGroupRef = intent.getStringExtra("SPACE_GROUP_REF").trim();
-        Log.e(TAG, "get Project Ref: "+ProjectSpaceGroupRef);
+        String ProjectSpaceGroupName = intent.getStringExtra("SPACE_GROUP_NAME").trim();
+        Log.e(TAG, "get Project Space Group Ref: "+ProjectSpaceGroupRef);
+        Log.e(TAG, "get Project Space Group Name "+ProjectSpaceGroupName);
+        spaceGroupName.setText(ProjectSpaceGroupName);
 
         getSpaceName(ProjectSpaceGroupRef,loginToken,loginDeviceId);
+
 
 
     }

@@ -16,6 +16,7 @@ import com.espressif.ui.models.arealandingmodel.ProjectAreaLandingResModel;
 import com.espressif.ui.models.lnstallerlandingpage.InstallerLandingResModel;
 import com.espressif.ui.models.provisioninglabel.ProvisioningRequest;
 import com.espressif.ui.models.provisioninglabel.ProvisioningResponse;
+import com.espressif.ui.models.provisioninglabel.ResetResponse;
 
 import java.util.List;
 
@@ -90,4 +91,12 @@ public interface ApiService {
 //            @Path("LoginToken") String loginToken,
 //            @Path("LoginDeviceId") String loginDeviceId
 //    );
+
+    @POST("mqtt/factoryresetnode/{nodeId}/{loginToken}")
+    Call<ResetResponse> factoryResetNode(
+            @Path("nodeId") String nodeId,
+            @Path("loginToken") String loginToken
+            // @Body ResetResponse requestBody
+    );
+
 }

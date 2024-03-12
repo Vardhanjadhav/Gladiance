@@ -198,7 +198,7 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
-                boolean powerState = false;
+                boolean powerState;
                 @Override
                 public void onClick(View v) {
 
@@ -348,7 +348,6 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         intent.putExtra("PRIMARY_KEY", primary);
 
                         context.startActivity(intent);
-
 
                     }
                 }
