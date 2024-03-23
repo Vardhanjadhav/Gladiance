@@ -257,6 +257,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        // Close the app when the back button is pressed
+        finishAffinity();
+    }
 
     //Login Post Req Method Code
     public void btnLoginRequestClick(String userId, String password,String deviceId) {
@@ -270,8 +275,9 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginResponseModel>() {
             @Override
             public void onResponse(Call<LoginResponseModel> call, Response<LoginResponseModel> response) {
+                LoginResponseModel loginResponse = null;
                 if (response.isSuccessful()) {
-                    LoginResponseModel loginResponse = response.body();
+                    loginResponse = response.body();
                     if (loginResponse != null && loginResponse.isSuccessful()) {
                         // Handle successful response
                         Log.d("LoginResponse", "Successful: " + loginResponse.isSuccessful());
@@ -279,6 +285,8 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("LoginResponse", "LoginToken: " + loginResponse.getLoginToken());
                         Log.d("LoginResponse", "UserTypes: " + loginResponse.getUserTypes().toString());
                         Log.d("LoginResponse", "UserDisplayName: " + loginResponse.getUserDisplayName());
+
+                        Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
 
                         String retrievedLoginToken = loginResponse.getLoginToken();
                         saveLoginToken(retrievedLoginToken);
@@ -292,6 +300,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     // Handle unsuccessful response
                     Log.e("LoginResponse", "Unsuccessful: " + response.message());
+                    Toast.makeText(LoginActivity.this, "Login failed: " + loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
                 }
             }

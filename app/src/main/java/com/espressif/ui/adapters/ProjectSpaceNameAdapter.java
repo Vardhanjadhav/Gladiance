@@ -71,7 +71,6 @@ public class ProjectSpaceNameAdapter extends RecyclerView.Adapter<ProjectSpaceNa
                         Log.e(TAG, "PROJECT_SPACE_REF: "+name );
                         context.startActivity(intent);
 
-
                     }
                 }
             });

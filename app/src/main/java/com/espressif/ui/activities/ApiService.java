@@ -3,6 +3,8 @@ package com.espressif.ui.activities;
 import com.espressif.ui.models.DeviceInfo;
 import com.espressif.ui.models.LoginRequestModel;
 import com.espressif.ui.models.LoginResponseModel;
+import com.espressif.ui.models.LogoutRequestModel;
+import com.espressif.ui.models.LogoutResponseModel;
 import com.espressif.ui.models.NodeResponseModel;
 import com.espressif.ui.models.ProjectSpaceGroupResModel;
 import com.espressif.ui.models.ProjectSpaceLandingResModel;
@@ -98,5 +100,8 @@ public interface ApiService {
             @Path("loginToken") String loginToken
             // @Body ResetResponse requestBody
     );
+
+    @POST("mobileapp/logoutuser")
+    Call<LogoutResponseModel> logoutUser(@Body LogoutRequestModel request);
 
 }

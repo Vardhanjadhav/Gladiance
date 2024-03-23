@@ -156,8 +156,6 @@ public class ProjectSpaceActivity extends AppCompatActivity {
 
                             }
 
-
-
                             //If any error change adapter class
                             SpaceListAdapter spaceListAdapter = new SpaceListAdapter(arrayList);
                             rvSpaceList.setAdapter(spaceListAdapter);

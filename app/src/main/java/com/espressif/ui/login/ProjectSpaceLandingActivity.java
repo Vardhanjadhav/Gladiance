@@ -98,8 +98,6 @@ public class ProjectSpaceLandingActivity extends AppCompatActivity {
 
     private void  getSpaceName(String ProjectSpaceGroupRef, String loginToken,String loginDeviceId) {
 
-
-
         ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
         Call<ProjectSpaceLandingResModel> call = apiService.getSpaceNameData(ProjectSpaceGroupRef, loginToken, loginDeviceId);
 
@@ -115,7 +113,6 @@ public class ProjectSpaceLandingActivity extends AppCompatActivity {
                             Log.e(TAG, "onResponse SpaceGroupName: " + space1.getGAAProjectSpaceName());
                             Log.e(TAG, "onResponse getGAAProjectSpaceRef: "+space1.getGAAProjectSpaceRef());
                             arrayList.add(new Space(space1.getGAAProjectSpaceRef(), space1.getGAAProjectSpaceName(), space1.getDisplayOrder(), space1.getDescription()));
-
 
                         }
 
